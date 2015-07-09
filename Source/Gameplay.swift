@@ -69,17 +69,7 @@ class Gameplay: CCNode, CCPhysicsCollisionDelegate  {
                 // create a joint to keep the penguin fixed to the scoop until the catapult is released
                 penguinCatapultJoint = CCPhysicsJoint.connectedPivotJointWithBodyA(currentPenguin.physicsBody, bodyB: catapultArm.physicsBody, anchorA: currentPenguin.anchorPointInPoints)
             }
-            // releases the joint and lets the penguin fly
-            penguinCatapultJoint?.invalidate()
-            penguinCatapultJoint = nil
-            
-            // after snapping rotation is fine
-            currentPenguin?.physicsBody.allowsRotation = true
-            
-            // follow the flying penguin
-            let actionFollow = CCActionFollow(target: currentPenguin, worldBoundary: boundingBox())
-            contentNode.runAction(actionFollow)
-        }
+                   }
     }
     
     func ccPhysicsCollisionPostSolve(pair: CCPhysicsCollisionPair!, seal: Seal!, wildcard: CCNode!) {
@@ -128,6 +118,17 @@ class Gameplay: CCNode, CCPhysicsCollisionDelegate  {
     override func touchEnded(touch: CCTouch!, withEvent event: CCTouchEvent!) {
         // when touches end, meaning the user releases their finger, release the catapult
         releaseCatapult()
+        // releases the joint and lets the penguin fly
+        penguinCatapultJoint?.invalidate()
+        penguinCatapultJoint = nil
+        
+        // after snapping rotation is fine
+        currentPenguin?.physicsBody.allowsRotation = true
+//
+//        // follow the flying penguin
+//        let actionFollow = CCActionFollow(target: currentPenguin, worldBoundary: boundingBox())
+//        contentNode.runAction(actionFollow)
+
     }
     
     override func touchCancelled(touch: CCTouch!, withEvent event: CCTouchEvent!) {
